@@ -4,7 +4,7 @@
 
 -----
 
-* This is the text content for course **"From Nand To Tetris"**, the book's full name is:
+* This is the text book for course **"From Nand To Tetris"**, the book's full name is:
 
   **「The Elements of Computing Systems: Building a Mordern Computer from First Principles」**
 

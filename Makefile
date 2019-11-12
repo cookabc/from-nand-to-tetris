@@ -1,0 +1,2 @@
+deploy:
+	./gh-pages.sh

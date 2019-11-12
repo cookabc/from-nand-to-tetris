@@ -1,4 +1,4 @@
-## The Elements of Computing Systems |
+## The Elements of Computing Systems
 
 > Author:  [Noam Nisan](https://www.cse.huji.ac.il/~noam/) and [Shimon Schocken](https://www.shimonschocken.com/)
 

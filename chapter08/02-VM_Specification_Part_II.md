@@ -1,6 +1,7 @@
 ### 8.2 VM Specification, Part II
 ---
 
+
 &emsp;&emsp;This section extends the basic VM specification from chapter 7 with program flow and <em>function calling</em> commands, thereby completing the overall VM specification.
 
 

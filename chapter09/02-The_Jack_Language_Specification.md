@@ -82,7 +82,7 @@
 
 <div align="center"><img width="400" src="../figure/09/9.6d.png"/></div>
 
-&emsp;&emsp;**<em>Variable Kinds and Scope</em>** Jack features four kinds of variables. Static variables are defined at the class level and are shared by all the objects derived from the class. For example, a BankAccount class may have a totalBalance static variable holding the sum of balances of all the bank accounts, each account being an object derived from the BankAccount class. Field variables are used to define the properties of individual objects of the class, for example, account owner and balance. Local variables, used by subroutines, exist only as long as the subroutine is running, and parameter variables are used to pass arguments to subroutines. For example, our BankAccount class may include the method signature method void transfer- (BankAccount from, int sum), declaring the two parameters from and sum. Thus, if joeAccount and janeAccount were two variables of type BankAccount, the command joeAccount.transfer(janeAccount, 100) will effect a transfer of 100 from Jane to Joe.
+&emsp;&emsp;**<em>Variable Kinds and Scope</em>** Jack features four kinds of variables. Static variables are defined at the class level and are shared by all the objects derived from the class. For example, a BankAccount class may have a totalBalance static variable holding the sum of balances of all the bank accounts, each account being an object derived from the BankAccount class. Field variables are used to define the properties of individual objects of the class, for example, account owner and balance. Local variables, used by subroutines, exist only as long as the subroutine is running, and parameter variables are used to pass arguments to subroutines. For example, our BankAccount class may include the method signature method void transfer(BankAccount from, int sum), declaring the two parameters from and sum. Thus, if joeAccount and janeAccount were two variables of type BankAccount, the command joeAccount.transfer(janeAccount, 100) will effect a transfer of 100 from Jane to Joe.
 
 &emsp;&emsp;**Figure 9.7** Variable kinds in the Jack language (throughout the table, <em>subroutine</em> is either <em>a function, a method, or a constructor</em>).
 
@@ -132,7 +132,7 @@
 
 &emsp;&emsp;For example, let c = Circle.new(x,y,50) where x, y, and 50 are the screen location of the circle’s center and its radius. When a constructor is called, the compiler requests the operating system to allocate enough memory space to hold the new object in memory. The OS returns the base address of the allocated memory segment, and the compiler assigns it to this (in the circle example, the value of this is assigned to c). Next, the constructed object is typically initialized to some valid state, effected by the Jack commands found in the constructor’s body.
 
-&emsp;&emsp;When an object is no longer needed in a program, it can be disposed. In particular, objects can be de- allocated from memory and their space reclaimed using the Memory.deAlloc (object) function from the standard library. Convention calls for every class to contain a dispose() method that properly encapsulates this de-allocation. For example, see figure 9.4.
+&emsp;&emsp;When an object is no longer needed in a program, it can be disposed. In particular, objects can be deallocated from memory and their space reclaimed using the Memory.deAlloc (object) function from the standard library. Convention calls for every class to contain a dispose() method that properly encapsulates this de-allocation. For example, see figure 9.4.
 
 
 
@@ -140,7 +140,9 @@
 
 &emsp;&emsp;The Jack language comes with a collection of built-in classes that extend the language’s capabilities. This standard library, which can also be viewed as a basic operating system, must be provided in every Jack language implementation. The standard library includes the following classes, all implemented in Jack:
   * <em>Math:</em> provides basic mathematical operations;
-  * <em>String:</em> implements the String type and string-related operations; • Array: implements the Array type and array-related operations; • Output: handles text output to the screen;
+  * <em>String:</em> implements the String type and string-related operations;
+  * <em>Array:</em> implements the Array type and array-related operations;
+  * <em>Output:</em> handles text output to the screen;
   * <em>Screen:</em> handles graphic output to the screen;
   * <em>Keyboard:</em> handles user input from the keyboard;
   * <em>Memory:</em> handles memory operations;
@@ -156,97 +158,55 @@
   * function int **sqrt**(int x): returns the integer part of the square root of x.
 
 &emsp;&emsp;**String** This class implements the String data type and various string-related operations.
-
-  &emsp;&emsp;■ constructor String **new**(int maxLength): constructs a new empty string (of length zero) that can contain at most maxLength characters;
-
-  &emsp;&emsp;■ method void **dispose**(): disposes this string;
-
-  &emsp;&emsp;■ method int **length**(): returns the length of this string;
-
-  &emsp;&emsp;■ method char **charAt**(int j): returns the character at location j of this string;
-
-  &emsp;&emsp;■ method void **setCharAt**(int j, char c): sets the j-th element of this string to c;
-
-  &emsp;&emsp;■ method String **appendChar**(char c): appends c to this string and returns this string;
-
-  &emsp;&emsp;■ method void **eraseLastChar**(): erases the last character from this string;
-
-  &emsp;&emsp;■ method int **intValue**(): returns the integer value of this string (or of the string prefix until a non-digit character is detected);
-
-  &emsp;&emsp;■ method void **setInt**(int j): sets this string to hold a representation of j;
-
-  &emsp;&emsp;■ function char **backSpace**(): returns the backspace character;
-
-  &emsp;&emsp;■ function char **doubleQuote**(): returns the double quote (“) character;
-
-  &emsp;&emsp;■ function char **newLine**(): returns the newline character.
+  * constructor String **new**(int maxLength): constructs a new empty string (of length zero) that can contain at most maxLength characters;
+  * method void **dispose**(): disposes this string;
+  * method int **length**(): returns the length of this string;
+  * method char **charAt**(int j): returns the character at location j of this string;
+  * method void **setCharAt**(int j, char c): sets the j-th element of this string to c;
+  * method String **appendChar**(char c): appends c to this string and returns this string;
+  * method void **eraseLastChar**(): erases the last character from this string;
+  * method int **intValue**(): returns the integer value of this string (or of the string prefix until a non-digit character is detected);
+  * method void **setInt**(int j): sets this string to hold a representation of j;
+  * function char **backSpace**(): returns the backspace character;
+  * function char **doubleQuote**(): returns the double quote (“) character;
+  * function char **newLine**(): returns the newline character.
 
 &emsp;&emsp;**Array** This class enables the construction and disposal of arrays.
-
-  &emsp;&emsp;■ function Array **new**(int size): constructs a new array of the given size;
-
-  &emsp;&emsp;■ method void **dispose**(): disposes this array.
+  * function Array **new**(int size): constructs a new array of the given size;
+  * method void **dispose**(): disposes this array.
 
 &emsp;&emsp;**Output** This class allows writing text on the screen.
-
-  &emsp;&emsp;■ function void **init**(): for internal use only;
-
-  &emsp;&emsp;■ function void **moveCursor**(int i, int j): moves the cursor to the j-th column of the i-th row, and erases the character displayed there;
-
-  &emsp;&emsp;■ function void **printChar**(char c): prints c at the cursor location and advances the cursor one column forward;
-
-  &emsp;&emsp;■ function void **printString**(String s): prints s starting at the cursor location and advances the cursor appropriately;
-
-  &emsp;&emsp;■ function void **printInt**(int i): prints i starting at the cursor location and advances the cursor appropriately;
-
-  &emsp;&emsp;■ function void **println**(): advances the cursor to the beginning of the next line;
-
-  &emsp;&emsp;■ function void **backSpace**(): moves the cursor one column back.
+  * function void **init**(): for internal use only;
+  * function void **moveCursor**(int i, int j): moves the cursor to the j-th column of the i-th row, and erases the character displayed there;
+  * function void **printChar**(char c): prints c at the cursor location and advances the cursor one column forward;
+  * function void **printString**(String s): prints s starting at the cursor location and advances the cursor appropriately;
+  * function void **printInt**(int i): prints i starting at the cursor location and advances the cursor appropriately;
+  * function void **println**(): advances the cursor to the beginning of the next line;
+  * function void **backSpace**(): moves the cursor one column back.
 
 &emsp;&emsp;**Screen** This class allows drawing graphics on the screen. Column indices start at 0 and are left-to-right. Row indices start at 0 and are top-to-bottom. The screen size is hardware-dependant (in the Hack platform: 256 rows by 512 columns).
-
-  &emsp;&emsp;■ function void **init**(): for internal use only;
-
-  &emsp;&emsp;■ function void **clearScreen**(): erases the entire screen;
-
-  &emsp;&emsp;■ function void **setColor**(boolean b): sets a color (white = false, black = true) to be used for all further drawXXX commands;
-
-  &emsp;&emsp;■ function void **drawPixel**(int x, int y): draws the (x,y) pixel;
-
-  &emsp;&emsp;■ function void **drawLine**(int x1, int y1, int x2, int y2): draws a line from pixel (x1,y1) to pixel (x2,y2);
-
-  &emsp;&emsp;■ function void **drawRectangle**(int x1, int y1, int x2, int y2): draws a filled rectangle whose top left corner is (x1,y1) and bottom right corner is (x2,y2);
-
-  &emsp;&emsp;■ function void **drawCircle**(int x, int y, int r): draws a filled circle of radius r <= 181 around (x,y).
+  * function void **init**(): for internal use only;
+  * function void **clearScreen**(): erases the entire screen;
+  * function void **setColor**(boolean b): sets a color (white = false, black = true) to be used for all further drawXXX commands;
+  * function void **drawPixel**(int x, int y): draws the (x,y) pixel;
+  * function void **drawLine**(int x1, int y1, int x2, int y2): draws a line from pixel (x1,y1) to pixel (x2,y2);
+  * function void **drawRectangle**(int x1, int y1, int x2, int y2): draws a filled rectangle whose top left corner is (x1,y1) and bottom right corner is (x2,y2);
+  * function void **drawCircle**(int x, int y, int r): draws a filled circle of radius r <= 181 around (x,y).
 
 &emsp;&emsp;**Keyboard** This class allows reading inputs from a standard keyboard.
-
-  &emsp;&emsp;■ function void **init**(): for internal use only;
-
-  &emsp;&emsp;■ function char **keyPressed**(): returns the character of the currently pressed key on the keyboard; if no key is currently pressed, returns 0;
-
-  &emsp;&emsp;■ function char **readChar**(): waits until a key is pressed on the keyboard and released, then echoes the key to the screen and returns the character of the pressed key;
-
-  &emsp;&emsp;■ function String **readLine**(String message): prints the message on the screen, reads the line (text until a newline character is detected) from the keyboard, echoes the line to the screen, and returns its value. This function also handles user backspaces;
-
-  &emsp;&emsp;■ function int **readInt**(String message): prints the message on the screen, reads the line (text until a newline character is detected) from the keyboard, echoes the line to the screen, and returns its integer value (until the first nondigit character in the line is detected). This function also handles user backspaces.
+  * function void **init**(): for internal use only;
+  * function char **keyPressed**(): returns the character of the currently pressed key on the keyboard; if no key is currently pressed, returns 0;
+  * function char **readChar**(): waits until a key is pressed on the keyboard and released, then echoes the key to the screen and returns the character of the pressed key;
+  * function String **readLine**(String message): prints the message on the screen, reads the line (text until a newline character is detected) from the keyboard, echoes the line to the screen, and returns its value. This function also handles user backspaces;
+  * function int **readInt**(String message): prints the message on the screen, reads the line (text until a newline character is detected) from the keyboard, echoes the line to the screen, and returns its integer value (until the first nondigit character in the line is detected). This function also handles user backspaces.
 
 &emsp;&emsp;**Memory** This class allows direct access to the main memory of the host platform.
-
-  &emsp;&emsp;■ function void **init**(): for internal use only;
-
-  &emsp;&emsp;■ function int **peek**(int address): returns the value of the main memory at this address;
-
-  &emsp;&emsp;■ function void **poke**(int address, int value): sets the contents of the main memory at this address to value;
-
-  &emsp;&emsp;■ function Array **alloc**(int size): finds and allocates from the heap a memory block of the specified size and returns a reference to its base address;
-
-  &emsp;&emsp;■ function void **deAlloc**(Array o): De-allocates the given object and frees its memory space. Sys This class supports some execution-related services.
-
-  &emsp;&emsp;■ function void **init**(): calls the init functions of the other OS classes and then calls the Main.main () function. For internal use only;
-
-  &emsp;&emsp;■ function void **halt**(): halts the program execution;
-
-  &emsp;&emsp;■ function void **error**(int errorCode): prints the error code on the screen and halts;
-
-  &emsp;&emsp;■ function void **wait**(int duration): waits approximately duration milliseconds and returns.
+  * function void **init**(): for internal use only;
+  * function int **peek**(int address): returns the value of the main memory at this address;
+  * function void **poke**(int address, int value): sets the contents of the main memory at this address to value;
+  * function Array **alloc**(int size): finds and allocates from the heap a memory block of the specified size and returns a reference to its base address;
+  * function void **deAlloc**(Array o): De-allocates the given object and frees its memory space. Sys This class supports some execution-related services.
+  * function void **init**(): calls the init functions of the other OS classes and then calls the Main.main () function. For internal use only;
+  * function void **halt**(): halts the program execution;
+  * function void **error**(int errorCode): prints the error code on the screen and halts;
+  * function void **wait**(int duration): waits approximately duration milliseconds and returns.

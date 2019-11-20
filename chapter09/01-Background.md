@@ -49,7 +49,7 @@
 
 &emsp;&emsp;**Figure 9.3b** Using the Fraction abstraction.
 
-&emsp;&emsp;**Implementing** the Class We now turn to the other player in our story—the programmer who has to actually implement the fraction abstraction. A possible Jack implementation is given in figure 9.3c.
+&emsp;&emsp;**Implementing the Class** We now turn to the other player in our story—the programmer who has to actually implement the fraction abstraction. A possible Jack implementation is given in figure 9.3c.
 
 &emsp;&emsp;Figure 9.3c illustrates the typical Jack program structure: classes, methods, constructors, and functions. It also demonstrates all the statement types available in the language: let, do, if, while, and return.
 

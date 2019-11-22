@@ -15,27 +15,27 @@
 
 &emsp;&emsp;Another benefit of the virtual machine approach is modularity. Every improvement in the efficiency of the VM implementation is immediately inherited by all the compilers above it. Likewise, every new digital device or appliance that is equipped with a VM implementation can immediately benefit from a huge base of available software, as seen in figure 7.1.
 
+<div align="center"><img width="600" src="../figure/07/7.1.png"/></div>
+
+&emsp;&emsp;**Figure 7.1** The virtual machine paradigm. Once a high-level program is compiled into VM code, the program can run on any hardware platform equipped with a suitable VM implementation. In this chapter we start building the <em>VM implementation on the Hack platform</em> and use a VM emulator like the one depicted on the right.
+
 
 
 #### 7.1.2 The Stack Machine Model
 
-&emsp;&emsp;Like most programming languages, the VM language consists of arithmetic, memory access, programflow, and subroutine calling operations. There are several possible software paradigms on which to base such a language implementation. One of the key questions regarding this choice is where will the operands and the results of the <em>VM operations reside</em>? Perhaps the cleanest solution is to put them on a stack data structure.
+&emsp;&emsp;Like most programming languages, the VM language consists of arithmetic, memory access, program flow, and subroutine calling operations. There are several possible software paradigms on which to base such a language implementation. One of the key questions regarding this choice is where will the operands and the results of the <em>VM operations reside</em>? Perhaps the cleanest solution is to put them on a stack data structure.
 
 &emsp;&emsp;In a <em>stack machine</em> model, arithmetic commands pop their operands from the top of the stack and push their results back onto the top of the stack. Other commands transfer data items from the stack’s top to designated memory locations, and vice versa. As it turns out, these simple stack operations can be used to implement the evaluation of any arithmetic or logical expression. Further, any program, written in any programming language, can be translated into an equivalent stack machine program. One such stack machine model is used in the Java Virtual Machine as well as in the VM described and built in what follows.
 
 &emsp;&emsp;**Elementary Stack Operations** A stack is an abstract data structure that supports two basic operations: push and pop. The push operation adds an element to the top of the stack; the element that was previously on top is pushed below the newly added element. The pop operation retrieves and removes the top element; the element just below it moves up to the top position. Thus the stack implements a last-in-firstout (LIFO) storage model, illustrated in figure 7.2.
 
-&emsp;&emsp;We see that stack access differs from conventional memory access in several respects. First, the stack is accessible only from the top, one item at a time. Second, reading the stack is a lossy operation: The only way to retrieve the top value is to remove it from the stack. In contrast, the act of reading a value from a regular memory location has no impact on the memory’s state. Finally, writing an item onto the stack adds it to the stack’s top, without changing the rest of the stack. In contrast, writing an item into a regular memory location is a lossy operation, since it overrides the location’s previous value.
-
-&emsp;&emsp;The stack data structure can be implemented in several different ways. The simplest approach is to keep an array, say stack, and a stack pointer variable, say sp, that points to the available location just above the topmost element. The <em>push x</em> command is then implemented by storing x at the array entry pointed by <em>sp</em> and then incrementing <em>sp</em> (i.e., stack [sp]=x; sp=sp+1). The <em>pop</em> operation is implemented by first decrementing <em>sp</em> and then returning the value stored in the top position (i.e., sp=sp-1; return stack [sp]).
-
-<div align="center"><img width="600" src="../figure/07/7.1.png"/></div>
-
-&emsp;&emsp;**Figure 7.1** The virtual machine paradigm. Once a high-level program is compiled into VM code, the program can run on any hardware platform equipped with a suitable VM implementation. In this chapter we start building the <em>VM implementation on the Hack platform</em> and use a VM emulator like the one depicted on the right.
-
 <div align="center"><img width="500" src="../figure/07/7.2.png"/></div>
 
 &emsp;&emsp;**Figure 7.2** Stack processing example, illustrating the two elementary operations <em>push</em> and <em>pop</em>. Following convention, the stack is drawn upside down, as if it grows downward. The location just after the top position is always referred to by a special pointer called sp, or <em>stack pointer</em>. The labels <em>a</em> and <em>b</em> refer to two arbitrary memory addresses.
+
+&emsp;&emsp;We see that stack access differs from conventional memory access in several respects. First, the stack is accessible only from the top, one item at a time. Second, reading the stack is a lossy operation: The only way to retrieve the top value is to remove it from the stack. In contrast, the act of reading a value from a regular memory location has no impact on the memory’s state. Finally, writing an item onto the stack adds it to the stack’s top, without changing the rest of the stack. In contrast, writing an item into a regular memory location is a lossy operation, since it overrides the location’s previous value.
+
+&emsp;&emsp;The stack data structure can be implemented in several different ways. The simplest approach is to keep an array, say stack, and a stack pointer variable, say sp, that points to the available location just above the topmost element. The <em>push x</em> command is then implemented by storing x at the array entry pointed by <em>sp</em> and then incrementing <em>sp</em> (i.e., stack [sp]=x; sp=sp+1). The <em>pop</em> operation is implemented by first decrementing <em>sp</em> and then returning the value stored in the top position (i.e., sp=sp-1; return stack [sp]).
 
 &emsp;&emsp;As usual in computer science, simplicity and elegance imply power of expression. The simple stack model is a versatile data structure that comes to play in many computer systems and algorithms. In the virtual machine architecture that we build here, it serves two key purposes. First, it is used for handling all the arithmetic and logical operations of the VM. Second, it facilitates subroutine calls and the associated memory allocation—the subjects of the next chapter.
 

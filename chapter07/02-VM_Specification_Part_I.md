@@ -7,13 +7,13 @@
 
 &emsp;&emsp;The virtual machine is stack-based: all operations are done on a stack. It is also function-based: a complete VM program is organized in program units called functions, written in the VM language. Each function has its own stand-alone code and is separately handled. The VM language has a single 16-bit data type that can be used as an integer, a Boolean, or a pointer. The language consists of four types of commands:
 
-  &emsp;&emsp;■ <em>Arithmetic commands</em> performarithmetic and logical operations on the stack
+  &emsp;&emsp;■ <em>Arithmetic commands</em> perform arithmetic and logical operations on the stack
 
   &emsp;&emsp;■ <em>Memory access commands</em> transfer data between the stack and virtual memory segments.
 
   &emsp;&emsp;■ <em>Program flow commands</em> facilitate conditional and unconditional branching operations.
 
-  &emsp;&emsp;■ <em>Function calling commands</em> call functions and return fromthem.
+  &emsp;&emsp;■ <em>Function calling commands</em> call functions and return from them.
 
 <div align="center"><img width="500" src="../figure/07/7.3.png"/></div>
 
@@ -27,7 +27,7 @@
 
 &emsp;&emsp;**Program and Command Structure** A VM <em>program</em> is a collection of one or more files with a .vm extension, each consisting of one or more functions. From a compilation standpoint, these constructs correspond, respectively, to the notions of <em>program</em>, <em>class</em>, and <em>method</em> in an object-oriented language.
 
-&emsp;&emsp;Within a .vm file, each VM <em>command<em></em> appears in a separate line, and in one of the following formats: command (e.g., add), <em>command arg</em> (e.g., goto loop), or command <em>arg1 arg2</em> (e.g., push local 3). The arguments are separated from each other and from the <em>command</em> part by an arbitrary number of spaces. “//” comments can appear at the end of any line and are ignored. Blank lines are permitted and ignored.
+&emsp;&emsp;Within a .vm file, each VM <em>command</em> appears in a separate line, and in one of the following formats: <em>command</em> (e.g., add), <em>command arg</em> (e.g., goto loop), or command <em>arg1 arg2</em> (e.g., push local 3). The arguments are separated from each other and from the <em>command</em> part by an arbitrary number of spaces. “//” comments can appear at the end of any line and are ignored. Blank lines are permitted and ignored.
 
 
 
@@ -83,7 +83,7 @@
 
 &emsp;&emsp;**Function Calling Commands**
 
-&emsp;&emsp;(In this list of commands, <em>function Name</em> is a symbol and <em>nLocals</em> and <em>nArgs</em> are non-negative integers.)
+&emsp;&emsp;(In this list of commands, <em>functionName</em> is a symbol and <em>nLocals</em> and <em>nArgs</em> are non-negative integers.)
 
 
 
@@ -137,6 +137,10 @@ location whose address is (bar+2) to 19.” As shown in figure 7.10, this operat
 &emsp;&emsp;**Figure 7.10** VM-based array manipulation using the pointer and that segments.
 
 &emsp;&emsp;Suppose now that a certain method in the high-level program, say resize, takes a Ball object and an integer r as arguments, and, among other things, sets the ball’s radius to r. The VM representation of this logic is shown in figure 7.11.
+
+<div align="center"><img width="600" src="../figure/07/7.11.png"/></div>
+
+&emsp;&emsp;**Figure 7.11** VM-based object manipulation using the pointer and this segments.
 
 &emsp;&emsp;When we set pointer 0 to the value of argument 0, we are effectively setting the base of the virtual this segment to the object’s base address. From this point on, VM commands can access any field in the object using the virtual memory segment this and an index relative to the object’s base-address in memory.
 

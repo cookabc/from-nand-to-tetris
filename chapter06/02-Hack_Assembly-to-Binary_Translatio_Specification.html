@@ -1250,7 +1250,45 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h3 id="62-hack-assembly-to-binary-translation-specification">6.2 Hack Assembly-to-Binary Translation Specification</h3>
+<hr>
+<p>&#x2003;&#x2003;The Hack assembly language and its equivalent binary representation were specified in chapter 4. A compact and formal version of this language specification is repeated here, for ease of reference. This specification can be viewed as the contract that Hack assemblers must implement, one way or another.</p>
+<h4 id="621-syntax-conventions-and-file-formats">6.2.1 Syntax Conventions and File Formats</h4>
+<p>&#x2003;&#x2003;<strong>File Names</strong> By convention, programs in binary machine code and in assembly code are stored in text files with &#x201C;hack&#x201D; and &#x201C;asm&#x201D; extensions, respectively. Thus, a Prog.asm file is translated by the assembler into a Prog.hack file.</p>
+<p>&#x2003;&#x2003;<strong>Binary Code (.hack) Files</strong> A binary code file is composed of text lines. Each line is a sequence of 16 &#x201C;0&#x201D; and &#x201C;1&#x201D; ASCII characters, coding a single 16-bit machine language instruction. Taken together, all the lines in the file represent a machine language program. When a machine language program is loaded into the computer&#x2019;s instruction memory, the binary code represented by the file&#x2019;s nth line is stored in address n of the instruction memory (the count of both program lines and memory addresses starts at 0).</p>
+<p>&#x2003;&#x2003;<strong>Assembly Language (.asm) Files</strong> An assembly language file is composed of text lines, each representing either an instruction or a symbol declaration:</p>
+<p>  &#x2003;&#x2003;&#x25A0; <em>Instruction:</em> an <em>A</em>-instruction or a <em>C</em>-instruction, described in section 6.2.2.</p>
+<p>  &#x2003;&#x2003;&#x25A0; (Symbol): This pseudo-command binds the Symbol to the memory location into which the next command in the program will be stored. It is called &#x201C;pseudocommand&#x201D; since it generates no machine code.</p>
+<p>  &#x2003;&#x2003;(The remaining conventions in this section pertain to assembly programs only.)</p>
+<p>&#x2003;&#x2003;<strong>Constants and Symbols</strong> <em>Constants</em> must be non-negative and are written in decimal notation. A user-defined symbol can be any sequence of letters, digits, underscore (_), dot (.), dollar sign ($), and colon (:) that does not begin with a digit.</p>
+<p>&#x2003;&#x2003;<strong>Comments</strong> Text beginning with two slashes (//) and ending at the end of the line is considered a comment and is ignored.</p>
+<p>&#x2003;&#x2003;<strong>White Space</strong> Space characters are ignored. Empty lines are ignored.</p>
+<p>&#x2003;&#x2003;<strong>Case Conventions</strong> All the assembly mnemonics must be written in uppercase. The rest (user-defined labels and variable names) is case sensitive. The convention is to use uppercase for labels and lowercase for variable names.</p>
+<h4 id="622-instructions">6.2.2 Instructions</h4>
+<p>&#x2003;&#x2003;The Hack machine language consists of two instruction types called addressing instruction (<em>A</em>-instruction) and compute instruction (<em>C</em>-instruction). The instruction format is as follows.</p>
+<div align="center"><img width="500" src="../figure/06/6.1a.png"></div>
+
+<p>&#x2003;&#x2003;The translation of each of the three fields comp, dest, jump to their binary forms is specified in the following three tables.</p>
+<div align="center"><img width="400" src="../figure/06/6.1b.png"></div>
+
+<div align="center"><img width="400" src="../figure/06/6.1c.png"></div>
+
+
+
+<h4 id="623-symbols">6.2.3 Symbols</h4>
+<p>&#x2003;&#x2003;Hack assembly commands can refer to memory locations (addresses) using either constants or symbols. Symbols in assembly programs arise from three sources.</p>
+<p>&#x2003;&#x2003;<strong>Predefined Symbols</strong> Any Hack assembly program is allowed to use the following predefined symbols.</p>
+<div align="center"><img width="300" src="../figure/06/6.1d.png"></div>
+
+<p>&#x2003;&#x2003;Note that each one of the top five RAM locations can be referred to using two predefined symbols. For example, either R2 or ARG can be used to refer to RAM[2].</p>
+<p>&#x2003;&#x2003;<strong>Label Symbols</strong> The pseudo-command (Xxx) defines the symbol Xxx to refer to the instruction memory location holding the next command in the program. A label can be defined only once and can be used anywhere in the assembly program, even before the line in which it is defined.</p>
+<p>&#x2003;&#x2003;<strong>Variable Symbols</strong> Any symbol Xxx appearing in an assembly program that is not predefined and is not defined elsewhere using the (Xxx) command is treated as a variable. Variables are mapped to consecutive memory locations as they are first encountered, starting at RAM address 16 (0x0010).</p>
+<h4 id="624-example">6.2.4 Example</h4>
+<p>&#x2003;&#x2003;Chapter 4 presented a program that sums up the integers 1 to 100. Figure 6.2 repeats this example, showing both its assembly and binary versions.</p>
+<div align="center"><img width="500" src="../figure/06/6.2.png"></div>
+
+<p>&#x2003;&#x2003;<strong>Figure 6.2</strong> Assembly and binary representations of the same program.</p>
+
                                 
                                 </section>
                             
@@ -1293,7 +1331,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"2.Hack Assembly-to-Binary Translation Specification","level":"2.7.2","depth":2,"next":{"title":"3.Implementation","level":"2.7.3","depth":2,"path":"chapter06/03-Implementation.md","ref":"chapter06/03-Implementation.md","articles":[]},"previous":{"title":"1.Background","level":"2.7.1","depth":2,"path":"chapter06/01-Background.md","ref":"chapter06/01-Background.md","articles":[]},"dir":"neutral"},"config":{"plugins":["expandable-chapters-small"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"expandable-chapters-small":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"3.2.3"},"file":{"path":"chapter06/02-Hack_Assembly-to-Binary_Translatio_Specification.md","mtime":"2019-11-20T02:59:05.651Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-21T03:13:22.132Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"2.Hack Assembly-to-Binary Translation Specification","level":"2.7.2","depth":2,"next":{"title":"3.Implementation","level":"2.7.3","depth":2,"path":"chapter06/03-Implementation.md","ref":"chapter06/03-Implementation.md","articles":[]},"previous":{"title":"1.Background","level":"2.7.1","depth":2,"path":"chapter06/01-Background.md","ref":"chapter06/01-Background.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"expandable-chapters-small":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"3.2.3"},"file":{"path":"chapter06/02-Hack_Assembly-to-Binary_Translatio_Specification.md","mtime":"2019-11-22T01:53:07.375Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-22T02:18:27.443Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

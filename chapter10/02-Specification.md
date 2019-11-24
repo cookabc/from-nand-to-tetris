@@ -28,9 +28,9 @@
 
 &emsp;&emsp;The main purpose of the syntax analyzer is to read a Jack program and “understand” its syntactic structure according to the Jack grammar. By understanding, we mean that the syntax analyzer must know, at each point in the parsing process, the structural identity of the program element that it is currently reading, namely, whether it is an expression, a statement, a variable name, and so on. The syntax analyzer must possess this syntactic knowledge in a complete recursive sense. Without it, it will be impossible to move on to code generation—the ultimate goal of the overall compiler.
 
-<div align="center"><img width="500" src="../figure10/10.5.png"/></div>
+<div align="center"><img width="500" src="../figure/10/10.5.png"/></div>
 
-<div align="center"><img width="500" src="../figure10/10.5a.png"/></div>
+<div align="center"><img width="500" src="../figure/10/10.5a.png"/></div>
 
 &emsp;&emsp;**Figure 10.65** Complete grammar of the Jack language.
 

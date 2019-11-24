@@ -1250,7 +1250,49 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h3 id="102-specification">10.2 Specification</h3>
+<hr>
+<p>&#x2003;&#x2003;This section has two distinct parts. First, we specify the Jack language&#x2019;s grammar. Next, we specify a syntax analyzer designed to parse programs according to this grammar.</p>
+<h4 id="1021-the-jack-language-grammar">10.2.1 The Jack Language Grammar</h4>
+<p>&#x2003;&#x2003;The functional specification of the Jack language given in chapter 9 was aimed at Jack programmers. We now turn to giving a formal specification of the language, aimed at Jack compiler developers. Our grammar specification is based on the following conventions:</p>
+<p>&#x2003;&#x2003;&#x2018;xxx&#x2019;: quoted boldface is used for tokens that appear verbatim (&#x201C;terminals&#x201D;);</p>
+<p>&#x2003;&#x2003;xxx: regular typeface is used for names of language constructs (&#x201C;non-terminals&#x201D;); (): parentheses are used for grouping of language constructs;</p>
+<p>&#x2003;&#x2003;x|y: indicates that either x or y can appear;</p>
+<p>&#x2003;&#x2003;x?: indicates that x appears 0 or 1 times;</p>
+<p>&#x2003;&#x2003;x*: indicates that x appears 0 or more times.</p>
+<p>&#x2003;&#x2003;The Jack language syntax is given in figure 10.5, using the preceding conventions.</p>
+<h4 id="1022-a-syntax-analyzer-for-the-jack-language">10.2.2 A Syntax Analyzer for the Jack Language</h4>
+<p>&#x2003;&#x2003;The main purpose of the syntax analyzer is to read a Jack program and &#x201C;understand&#x201D; its syntactic structure according to the Jack grammar. By understanding, we mean that the syntax analyzer must know, at each point in the parsing process, the structural identity of the program element that it is currently reading, namely, whether it is an expression, a statement, a variable name, and so on. The syntax analyzer must possess this syntactic knowledge in a complete recursive sense. Without it, it will be impossible to move on to code generation&#x2014;the ultimate goal of the overall compiler.</p>
+<div align="center"><img width="500" src="../figure/10/10.5.png"></div>
+
+<div align="center"><img width="500" src="../figure/10/10.5a.png"></div>
+
+<p>&#x2003;&#x2003;<strong>Figure 10.65</strong> Complete grammar of the Jack language.</p>
+<p>&#x2003;&#x2003;The fact that the syntax analyzer &#x201C;understands&#x201D; the programmatic structure of the input can be demonstrated by having it print the processed text in some well-structured and easy-to-read format. One can think of several ways to cook up such a demonstration. In this book, we decided to have the syntax analyzer output an XML file whose marked-up format reflects the syntactic structure of the underlying program. By viewing this XML output file&#x2014;a task that can be conveniently done with any Web browser &#x2014;one should be able to tell right away if the syntax analyzer is doing the job or not.</p>
+<h4 id="1023-the-syntax-analyzers-input">10.2.3 The Syntax Analyzer&#x2019;s Input</h4>
+<p>&#x2003;&#x2003;The Jack syntax analyzer accepts a single command line parameter, as follows:</p>
+<pre><code>  prompt&gt; JackAnalyzer source
+</code></pre><p>&#x2003;&#x2003;Where <em>source</em> is either a file name of the form Xxx.jack (the extension is mandatory) or a directory name containing one or more .jack files (in which case there is no extension). The syntax analyzer compiles the Xxx.jack file into a file named Xxx.xml, created in the same directory in which the source file is located. If source is a directory name, each .jack file located in it is compiled, creating a corresponding .xml file in the same directory.</p>
+<p>&#x2003;&#x2003;Each Xxx.jack file is a stream of characters. This stream should be tokenized into a stream of tokens according to the rules specified by the lexical elements of the Jack language (see figure 10.5, top). The tokens may be separated by an arbitrary number of space characters, newline characters, and comments, which are ignored. Comments are of the standard formats /<em> comment until closing </em>/, /<em>* API comment </em>/, and // comment to end of line.</p>
+<h4 id="1024-the-syntax-analyzers-output">10.2.4 The Syntax Analyzer&#x2019;s Output</h4>
+<p>&#x2003;&#x2003;Recall that the development of the Jack compiler is split into two stages (see figure 10.1), starting with the syntax analyzer. In this chapter, we want the syntax analyzer to emit an XML description of the input program, as illustrated in figure 10.6. In order to do so, the syntax analyzer has to recognize two major types of language constructs: terminal and non-terminal elements. These constructs are handled as follows.</p>
+<p>&#x2003;&#x2003;<strong>Non-Terminals</strong> Whenever a non-terminal language element of type xxx is encountered, the syntax analyzer should generate the marked-up output:</p>
+<pre><code>  &lt;xxx&gt;
+    Recursive code for the body of the xxx element
+  &lt;/xxx&gt;
+</code></pre><p>&#x2003;&#x2003;Where xxx is one of the following (and only the following) non-terminals of the Jack grammar:</p>
+<p>  &#x2003;&#x2003;&#x25A0; class, classVarDec, subroutineDec, parameterList, subroutineBody, varDec;</p>
+<p>  &#x2003;&#x2003;&#x25A0; statements, whileSatement, ifStatement, returnStatement, letStatement, doStatement;</p>
+<p>  &#x2003;&#x2003;&#x25A0; expression, term, expressionList.</p>
+<p>&#x2003;&#x2003;<strong>Terminals</strong> Whenever a terminal language element of type xxx is encountered, the syntax analyzer should generate the marked-up output:</p>
+<pre><code>  &lt;xxx&gt;terminal&lt;/xxx&gt;
+</code></pre><p>&#x2003;&#x2003;Where xxx is one of the five token types recognized by the Jack language (as specified in the Jack grammar&#x2019;s &#x201C;lexical elements&#x201D; section), namely, keyword, symbol, integerConstant, stringConstant, or identifier.</p>
+<p>&#x2003;&#x2003;Figure 10.6, which shows the analyzer&#x2019;s output, should evoke some sense of d&#xE9;j&#xE0; vu. Earlier in the chapter we noted that the structure of a program can be analyzed into a parse tree. And indeed, XML output is simply a textual description of a tree. In particular, note that in a parse tree, the non-terminal nodes form a &#x201C;super structure&#x201D; that describes how the tree&#x2019;s terminal nodes (the tokens) are grouped into language constructs. This pattern is mirrored in the XML output, where non-terminal XML elements describe how terminal XML items are arranged. In a similar fashion, the tokens generated by the tokenizer form the lowest level of the XML output, just as they form the terminal leaves of the program&#x2019;s parse tree.</p>
+<div align="center"><img width="500" src="../figure/10/10.6.png"></div>
+
+<p>&#x2003;&#x2003;<strong>Figure 10.6</strong> Jack Analyzer in action.</p>
+<p>&#x2003;&#x2003;<strong>Code Generation</strong> We have just finished specifying the analyzer&#x2019;s XML output. In the next chapter we replace the software that generates this output with software that generates executable VM code, leading to a full-scale Jack compiler.</p>
+
                                 
                                 </section>
                             
@@ -1293,7 +1335,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"2.Specification","level":"2.11.2","depth":2,"next":{"title":"3.Implementation","level":"2.11.3","depth":2,"path":"chapter10/03-Implementation.md","ref":"chapter10/03-Implementation.md","articles":[]},"previous":{"title":"1.Background","level":"2.11.1","depth":2,"path":"chapter10/01-Background.md","ref":"chapter10/01-Background.md","articles":[]},"dir":"neutral"},"config":{"plugins":["expandable-chapters-small"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"expandable-chapters-small":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"3.2.3"},"file":{"path":"chapter10/02-Specification.md","mtime":"2019-11-22T02:18:48.174Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-23T13:53:16.099Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"2.Specification","level":"2.11.2","depth":2,"next":{"title":"3.Implementation","level":"2.11.3","depth":2,"path":"chapter10/03-Implementation.md","ref":"chapter10/03-Implementation.md","articles":[]},"previous":{"title":"1.Background","level":"2.11.1","depth":2,"path":"chapter10/01-Background.md","ref":"chapter10/01-Background.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"expandable-chapters-small":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"3.2.3"},"file":{"path":"chapter10/02-Specification.md","mtime":"2019-11-24T03:22:11.635Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-24T03:40:35.368Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

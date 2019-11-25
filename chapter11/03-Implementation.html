@@ -1250,7 +1250,41 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h3 id="113-implementation">11.3 Implementation</h3>
+<hr>
+<p>&#x2003;&#x2003;We now turn to propose a software architecture for the overall compiler. This architecture builds upon the syntax analyzer described in chapter 10. In fact, the current architecture is based on gradually evolving the syntax analyzer into a full-scale compiler. The overall compiler can thus be constructed using five modules:</p>
+<ul>
+<li>JackCompiler: top-level driver that sets up and invokes the other modules;</li>
+<li>JackTokenizer: tokenizer;</li>
+<li>SymbolTable: symbol table;</li>
+<li>VMWriter: output module for generating VM code;</li>
+<li>CompilationEngine: recursive top-down compilation engine.</li>
+</ul>
+<h4 id="1131-the-jackcompiler-module">11.3.1 The <em>JackCompiler</em> Module</h4>
+<p>&#x2003;&#x2003;The compiler operates on a given source, where source is either a file name of the form Xxx.jack or a directory name containing one or more such files. For each Xxx.jack input file, the compiler creates a JackTokenizer and an output Xxx.vm file. Next, the compiler uses the <em>CompilationEngine</em>, SymbolTable, and VMWriter modules to write the output file.</p>
+<h4 id="1132-the-jacktokenizer-module">11.3.2 The <em>JackTokenizer</em> Module</h4>
+<p>&#x2003;&#x2003;The tokenizer API was given in section 10.3.2.</p>
+<h4 id="1133-the-symboltable-module">11.3.3 The <em>SymbolTable</em> Module</h4>
+<p>&#x2003;&#x2003;This module provides services for creating and using a symbol table. Recall that each symbol has a scope from which it is visible in the source code. The symbol table implements this abstraction by giving each symbol a running number (index) within the scope. The index starts at 0, increments by 1 each time an identifier is added to the table, and resets to 0 when starting a new scope. The following kinds of identifiers may appear in the symbol table:</p>
+<p>&#x2003;&#x2003;<em>Static:</em> Scope: class.</p>
+<p>&#x2003;&#x2003;<em>Field:</em> Scope: class.</p>
+<p>&#x2003;&#x2003;<em>Argument:</em> Scope: subroutine (method/function/constructor).</p>
+<p>&#x2003;&#x2003;<em>Var:</em> Scope: subroutine (method/function/constructor).</p>
+<p>&#x2003;&#x2003;When compiling error-free Jack code, any identifier not found in the symbol table may be assumed to be a subroutine name or a class name. Since the Jack language syntax rules suffice for distinguishing between these two possibilities, and since no &#x201C;linking&#x201D; needs to be done by the compiler, there is no need to keep these identifiers in the symbol table.</p>
+<p>&#x2003;&#x2003;<strong>SymbolTable:</strong> Provides a symbol table abstraction. The symbol table associates the identifier names found in the program with identifier properties needed for compilation: type, kind, and running index. The symbol table for Jack programs has two nested scopes (class/subroutine).</p>
+<div align="center"><img width="550" src="../figure/11/11.6b.png"></div>
+
+<p>&#x2003;&#x2003;<strong>Implementation Tip</strong> The symbol table abstraction and API can be implemented using two separate hash tables: one for the class scope and another one for the subroutine scope. When a new subroutine is started, the subroutine scope table can be cleared.</p>
+<h4 id="1134-the-vmwriter-module">11.3.4 The <em>VMWriter</em> Module</h4>
+<p>&#x2003;&#x2003;<strong>VMWriter:</strong> Emits VM commands into a file, using the VM command syntax.</p>
+<div align="center"><img width="550" src="../figure/11/11.6c.png"></div>
+
+
+
+<h4 id="1135-the-compilationengine-module">11.3.5 The <em>CompilationEngine</em> Module</h4>
+<p>&#x2003;&#x2003;This class does the compilation itself. It reads its input from a JackTokenizer and writes its output into a VMWriter. It is organized as a series of compilexxx( ) routines, where xxx is a syntactic element of the Jack language. The contract between these routines is that each compilexxx( ) routine should read the syntactic construct xxx from the input, advance( ) the tokenizer exactly beyond xxx, and emit to the output VM code effecting the semantics of xxx. Thus compilexxx( ) may only be called if indeed xxx is the next syntactic element of the input. If xxx is a part of an expression and thus has a value, the emitted code should compute this value and leave it at the top of the VM stack.</p>
+<p>&#x2003;&#x2003;The API of this module is identical to that of the syntax analyzer&#x2019;s <em>compilation-Engine</em> module from chapter 10, and thus we suggest gradually morphing the syntax analyzer into a full compiler. Section 11.5 provides step-by-step instructions and test programs for this construction.</p>
+
                                 
                                 </section>
                             
@@ -1293,7 +1327,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"3.Implementation","level":"2.12.3","depth":2,"next":{"title":"4.Perspective","level":"2.12.4","depth":2,"path":"chapter11/04-Perspective.md","ref":"chapter11/04-Perspective.md","articles":[]},"previous":{"title":"2.Specification","level":"2.12.2","depth":2,"path":"chapter11/02-Specification.md","ref":"chapter11/02-Specification.md","articles":[]},"dir":"neutral"},"config":{"plugins":["expandable-chapters-small"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"expandable-chapters-small":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"3.2.3"},"file":{"path":"chapter11/03-Implementation.md","mtime":"2019-11-23T13:53:34.220Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-24T03:40:35.368Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"3.Implementation","level":"2.12.3","depth":2,"next":{"title":"4.Perspective","level":"2.12.4","depth":2,"path":"chapter11/04-Perspective.md","ref":"chapter11/04-Perspective.md","articles":[]},"previous":{"title":"2.Specification","level":"2.12.2","depth":2,"path":"chapter11/02-Specification.md","ref":"chapter11/02-Specification.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"expandable-chapters-small":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"3.2.3"},"file":{"path":"chapter11/03-Implementation.md","mtime":"2019-11-25T02:12:12.557Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-25T02:27:55.981Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

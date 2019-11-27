@@ -84,7 +84,7 @@
 
 
 
-#### 12.3.8 The <em>JackTokenizer</em> Module
+#### 12.3.8 Sys
 
 &emsp;&emsp;Sys.init: An application program written in Jack is a set of classes. One class must be named Main, and this class must include a function named main. In order to start running the application program, the Main.main( ) function should be invoked. Now, it should be understood that the operating system is itself a program (set of classes). Thus, when the computer boots up, we want to start running the operating system program first, and then we want the OS to start running the main program.
 

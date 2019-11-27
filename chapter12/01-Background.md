@@ -32,7 +32,7 @@ proportional not to the multiplicands’ value, which may be as large as 2n, but
 
 &emsp;&emsp;The running time of this algorithm is determined by the depth of the recursion. Since in each level of recursion the value of y is multiplied by 2, and since we terminate once y > x, it follows that the recursion depth is bounded by n, the number of bits in x. Each recursion level involves a constant number of addition, subtraction, and multiplication operations, implying a total running time of <em>O(n)</em> such operations.
 
-&emsp;&emsp;**This algorithm may be considered suboptimal since each multiplication operation also requires <em>O(n)</em> addition and subtraction operations. However, careful inspection reveals that the product 2 · q · y can be computed without any multiplication. Instead, we can rely on the value of this product in the previous recursion level, and use addition to establish its current value.
+&emsp;&emsp;This algorithm may be considered suboptimal since each multiplication operation also requires <em>O(n)</em> addition and subtraction operations. However, careful inspection reveals that the product 2 · q · y can be computed without any multiplication. Instead, we can rely on the value of this product in the previous recursion level, and use addition to establish its current value.
 
 &emsp;&emsp;**Square Root** Square roots can be computed efficiently in a number of different ways, for example, by using the Newton-Raphson method or a Taylor series expansion. For our purpose though, a simpler algorithm will suffice. The square root functiony = √x has two convenient properties. First, it is monotonically increasing. Second, its inverse function, x = y<sup>2</sup>, is something that we already know how to compute (multiplication). Taken together, these properties imply that we have all we need to compute square roots using binary search. Figure 12.3 gives the details.
 
@@ -103,7 +103,7 @@ proportional not to the multiplicands’ value, which may be as large as 2n, but
 
 #### 12.1.5 Input/Output Management
 
-&emsp;&emsp;Computers are typically connected to a variety of input/output devices such as keyboard, screen, mouse, disk, network card, etc. Each of these I/O devices has its own electromechanical and physical idiosyncrasies, and thus reading and writing data on them involves many technical details. High-level languages abstract these details away from the programmer using high-level operations like c=readChar () and printChar (c). These operations are implemented by OS routines that carry out the actual I/O.
+&emsp;&emsp;Computers are typically connected to a variety of input/output devices such as keyboard, screen, mouse, disk, network card, etc. Each of these I/O devices has its own electromechanical and physical idiosyncrasies, and thus reading and writing data on them involves many technical details. High-level languages abstract these details away from the programmer using high-level operations like c=readChar() and printChar(c). These operations are implemented by OS routines that carry out the actual I/O.
 
 &emsp;&emsp;Hence, an important function of the operating system is handling the various I/O devices connected to the computer. This is done by encapsulating the details of interfacing the device and by providing convenient access to its basic functionality, using a set of O/S routines collectively known as the device driver. In this book we describe the basic elements of handling the two most prevalent I/O devices: a screen and a keyboard. We divide the handling of the screen into two logically separate modules: handling graphics output and handling character output.
 
@@ -119,7 +119,7 @@ proportional not to the multiplicands’ value, which may be as large as 2n, but
 
 <div align="center"><img width="500" src="../figure/12/12.7.png"/></div>
 
-&emsp;&emsp;**Figure 12.7** Improved memory allocation scheme (with recycling).
+&emsp;&emsp;**Figure 12.7** Drawing a pixel.
 
 &emsp;&emsp;The procedure for drawing a line from location (x1, y1) to location (x2, y2) starts by drawing the (x1, y1) pixel and then zigzagging in the direction of (x2, y2), until this pixel is reached. See figure 12.8a for the details.
 
@@ -145,7 +145,7 @@ proportional not to the multiplicands’ value, which may be as large as 2n, but
 
 &emsp;&emsp;To develop a capability to write text on a bitmap screen, we first have to divide the physical pixel- oriented screen into a logical, character-oriented screen suitable for writing complete characters. For example, consider a screen that is 256 rows by 512 columns. If we allocate a grid of 11 * 8 pixels for drawing a single character (11 rows, 8 columns), then our screen can show 23 lines of 64 characters each (with 3 extra rows of pixels left unused).
 
-&emsp;&emsp;**Next, for each character that we want to display on the screen, we can design a good-looking font, and then implement the font using a series of character bitmaps. For example, figure 12.10 gives a possible bitmap for the letter ‘A’.
+&emsp;&emsp;Next, for each character that we want to display on the screen, we can design a good-looking font, and then implement the font using a series of character bitmaps. For example, figure 12.10 gives a possible bitmap for the letter ‘A’.
 
 <div align="center"><img width="550" src="../figure/12/12.9.png"/></div>
 

@@ -6,7 +6,9 @@
 
 &emsp;&emsp;The operating system is divided into eight classes:
   * <em>Math:</em> provides basic mathematical operations;
-  * <em>String:</em> implements the String type and string-related operations; • Array: implements the Array type and array-related operations; • Output: handles text output to the screen;
+  * <em>String:</em> implements the String type and string-related operations;
+  * <em>Array:</em> implements the Array type and array-related operations;
+  * <em>Output:</em> handles text output to the screen;
   * <em>Screen:</em> handles graphic output to the screen;
   * <em>Keyboard:</em> handles user input from the keyboard;
   * <em>Memory:</em> handles memory operations;
@@ -38,8 +40,10 @@
   * method String **appendChar**(char c): appends c to this string and returns this string;
   * method void **eraseLastChar**(): erases the last character from this string;
   * method int **intValue**(): returns the integer value of this string (or the string prefix until a non-digit character is detected);
-  * method void **setInt**(int j): sets this string to hold a representation of j; ■ function char backSpace(): returns the backspace character;
-  * function char **doubleQuote**(): returns the double quote (“) character; ■ function char newLine(): returns the newline character.
+  * method void **setInt**(int j): sets this string to hold a representation of j;
+  * function char **backSpace**(): returns the backspace character;
+  * function char **doubleQuote**(): returns the double quote (“) character;
+  * function char **newLine**(): returns the newline character.
 
 
 
@@ -59,7 +63,8 @@
   * function void **printChar**(char c): prints c at the cursor location and advances the cursor one column forward;
   * function void **printString**(String s): prints s starting at the cursor location and advances the cursor appropriately;
   * function void **printInt**(int i): prints i starting at the cursor location and advances the cursor appropriately;
-  * function void **println**(): advances the cursor to the beginning of the next line; ■ function void backSpace(): moves the cursor one column back.
+  * function void **println**(): advances the cursor to the beginning of the next line;
+  * function void **backSpace**(): moves the cursor one column back.
 
 
 

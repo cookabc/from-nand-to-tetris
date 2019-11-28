@@ -24,9 +24,9 @@
 
 &emsp;&emsp;Recall that the VM implementation is a translator program, written in some high-level language. It accepts VM code as input and emits assembly code as output. Hence, each pseudo-operation described in the right column of figure 8.5 is actually implemented by emitting assembly language instructions. Note that some of these “instructions” entail planting label declarations in the generated code stream.
 
-<div align="center"><img width="500" src="../figure/08/8.5.png"/></div>
+<div align="center"><img width="600" src="../figure/08/8.5.png"/></div>
 
-&emsp;&emsp;**Figure 8.5** VM implementation of function commands. The parenthetical (return address) and (f ) are label declarations, using Hack assembly syntax convention.
+&emsp;&emsp;**Figure 8.5** VM implementation of function commands. The parenthetical (return address) and (f) are label declarations, using Hack assembly syntax convention.
 
 &emsp;&emsp;**Assembly Language Symbols** As we have seen earlier, the implementation of program flow and function calling commands requires the VM implementation to create and use special symbols at the assembly level. These symbols are summarized in figure 8.6. For completeness of presentation, the first three rows of the table document the symbols described and implemented in chapter 7.
 
@@ -50,17 +50,17 @@
 
 &emsp;&emsp;The factorial of a positive number n can be computed by the iterative formula n! = 1 ·2·... ·(n - 1) · n. This algorithmis implemented in figure 8.7.
 
-&emsp;&emsp;Let us focus on the call mult command highlighted in the fact function code from figure 8.7. Figure 8.8shows three stack states related to this call, illustrating the function calling protocol in action.
-
-&emsp;&emsp;If we ignore the middle stack instance in figure 8.8, we observe that fact has set up some arguments and called mult to operate on them(left stack instance). When mult returns (right stack instance), the arguments of the called function have been replaced with the function’s return value. In other words, when the dust clears from the function call, the calling function has received the service that it has requested, and processing resumes as if nothing happened: The drama of mult’s processing (middle stack instance) has left no trace whatsoever on the stack, except for the return value.
-
-<div align="center"><img width="500" src="../figure/08/8.7.png"/></div>
+<div align="center"><img width="600" src="../figure/08/8.7.png"/></div>
 
 &emsp;&emsp;**Figure 8.7** The life cycle of function calls. An arbitrary function p calls function fact, which then calls mult several times. Vertical arrows depict transfer of control from one function to another. At any given point in time, only one function is running, while all the functions up the calling chain are waiting for it to return. When a function returns, the function that called it resumes its execution.
 
-<div align="center"><img width="500" src="../figure/08/8.8.png"/></div>
+&emsp;&emsp;Let us focus on the call mult command highlighted in the fact function code from figure 8.7. Figure 8.8 shows three stack states related to this call, illustrating the function calling protocol in action.
+
+<div align="center"><img width="600" src="../figure/08/8.8.png"/></div>
 
 &emsp;&emsp;**Figure 8.8** Global stack dynamics corresponding to figure 8.7, focusing on the call mult event. The pointers SP, ARG, and LCL are not part of the VM abstraction and are used by the VM implementation to map the stack on the host RAM.
+
+&emsp;&emsp;If we ignore the middle stack instance in figure 8.8, we observe that fact has set up some arguments and called mult to operate on them(left stack instance). When mult returns (right stack instance), the arguments of the called function have been replaced with the function’s return value. In other words, when the dust clears from the function call, the calling function has received the service that it has requested, and processing resumes as if nothing happened: The drama of mult’s processing (middle stack instance) has left no trace whatsoever on the stack, except for the return value.
 
 
 
@@ -74,6 +74,6 @@
 
 &emsp;&emsp;**CodeWriter:** Translates VM commands into Hack assembly code. The routines listed here should be added to the CodeWriter module API given in chapter 7.
 
-<div align="center"><img width="500" src="../figure/08/8.81.png"/></div>
+<div align="center"><img width="600" src="../figure/08/8.81.png"/></div>
 
-<div align="center"><img width="500" src="../figure/08/8.82.png"/></div>
+<div align="center"><img width="600" src="../figure/08/8.82.png"/></div>

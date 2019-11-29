@@ -1250,7 +1250,102 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h3 id="122-the-jack-os-specification">12.2 The Jack OS Specification</h3>
+<hr>
+<p>&#x2003;&#x2003;The previous section presented a series of algorithms that address some classic operating system tasks. In this section we turn to formally specify one particular operating system&#x2014;the Jack OS&#x2014;in API form. Since the Jack OS can also be viewed as an extension of the Jack programming language, this documentation duplicates exactly &#x201C;The Jack Standard Library&#x201D; from section 9.2.7. In chapter 9, the OS specification was intended for programmers who want to use its abstract services; in this chapter, the OS specification is intended for programmers who have to implement these services. Technical information and implementation tips follow in section 12.3.</p>
+<p>&#x2003;&#x2003;The operating system is divided into eight classes:</p>
+<ul>
+<li><em>Math:</em> provides basic mathematical operations;</li>
+<li><em>String:</em> implements the String type and string-related operations;</li>
+<li><em>Array:</em> implements the Array type and array-related operations;</li>
+<li><em>Output:</em> handles text output to the screen;</li>
+<li><em>Screen:</em> handles graphic output to the screen;</li>
+<li><em>Keyboard:</em> handles user input from the keyboard;</li>
+<li><em>Memory:</em> handles memory operations;</li>
+<li><em>Sys:</em> provides some execution-related services.</li>
+</ul>
+<h4 id="1221-math">12.2.1 Math</h4>
+<p>&#x2003;&#x2003;This class enables various mathematical operations.</p>
+<ul>
+<li>function void <strong>init</strong>(): for internal use only;</li>
+<li>function int <strong>abs</strong>(int x): returns the absolute value of x;</li>
+<li>function int <strong>multiply</strong>(int x, int y): returns the product of x and y;</li>
+<li>function int <strong>divide</strong>(int x, int y): returns the integer part of x/y;</li>
+<li>function int <strong>min</strong>(int x, int y): returns the minimum of x and y;</li>
+<li>function int <strong>max</strong>(int x, int y): returns the maximum of x and y;</li>
+<li>function int <strong>sqrt</strong>(int x): returns the integer part of the square root of x.</li>
+</ul>
+<h4 id="1222-string">12.2.2 String</h4>
+<p>&#x2003;&#x2003;This class implements the String data type and various string-related operations.</p>
+<ul>
+<li>constructor String <strong>new</strong>(int maxLength): constructs a new empty string (of length zero) that can contain at most maxLength characters;</li>
+<li>method void <strong>dispose</strong>(): disposes this string;</li>
+<li>method int <strong>length</strong>(): returns the length of this string;</li>
+<li>method char <strong>charAt</strong>(int j): returns the character at location j of this string;</li>
+<li>method void <strong>setCharAt</strong>(int j, char c): sets the j-th element of this string to c;</li>
+<li>method String <strong>appendChar</strong>(char c): appends c to this string and returns this string;</li>
+<li>method void <strong>eraseLastChar</strong>(): erases the last character from this string;</li>
+<li>method int <strong>intValue</strong>(): returns the integer value of this string (or the string prefix until a non-digit character is detected);</li>
+<li>method void <strong>setInt</strong>(int j): sets this string to hold a representation of j;</li>
+<li>function char <strong>backSpace</strong>(): returns the backspace character;</li>
+<li>function char <strong>doubleQuote</strong>(): returns the double quote (&#x201C;) character;</li>
+<li>function char <strong>newLine</strong>(): returns the newline character.</li>
+</ul>
+<h4 id="1223-array">12.2.3 Array</h4>
+<p>&#x2003;&#x2003;This class enables the construction and disposal of arrays.</p>
+<ul>
+<li>function Array <strong>new</strong>(int size): constructs a new array of the given size;</li>
+<li>method void <strong>dispose</strong>(): disposes this array.</li>
+</ul>
+<h4 id="1224-output">12.2.4 Output</h4>
+<p>&#x2003;&#x2003;This class allows writing text on the screen.</p>
+<ul>
+<li>function void <strong>init</strong>(): for internal use only;</li>
+<li>function void <strong>moveCursor</strong>(int i, int j): moves the cursor to the j-th column of the i-th row, and erases the character displayed there;</li>
+<li>function void <strong>printChar</strong>(char c): prints c at the cursor location and advances the cursor one column forward;</li>
+<li>function void <strong>printString</strong>(String s): prints s starting at the cursor location and advances the cursor appropriately;</li>
+<li>function void <strong>printInt</strong>(int i): prints i starting at the cursor location and advances the cursor appropriately;</li>
+<li>function void <strong>println</strong>(): advances the cursor to the beginning of the next line;</li>
+<li>function void <strong>backSpace</strong>(): moves the cursor one column back.</li>
+</ul>
+<h4 id="1225-screen">12.2.5 Screen</h4>
+<p>&#x2003;&#x2003;This class allows drawing graphics on the screen. Column indices start at 0 and are left to right. Row indices start at 0 and are top to bottom. The screen size is hardware-dependant (in the Hack platform: 256 rows by 512 columns).</p>
+<ul>
+<li>function void <strong>init</strong>(): for internal use only;</li>
+<li>function void <strong>clearScreen</strong>(): erases the entire screen;</li>
+<li>function void <strong>setColor</strong>(boolean b): sets a color (white = false, black = true) to be used for all further drawXXX commands;</li>
+<li>function void <strong>drawPixel</strong>(int x, int y): draws the (x,y) pixel;</li>
+<li>function void <strong>drawLine</strong>(int x1, int y1, int x2, int y2): draws a line from pixel (x1,y1) to pixel (x2,y2);</li>
+<li>function void <strong>drawRectangle</strong>(int x1, int y1, int x2, int y2): draws a filled rectangle whose top left corner is (x1,y1) and whose bottom right corner is (x2,y2);</li>
+<li>function void <strong>drawCircle</strong>(int x, int y, int r): draws a filled circle of radius r &lt;= 181 around (x,y).</li>
+</ul>
+<h4 id="1226-keyboard">12.2.6 Keyboard</h4>
+<p>&#x2003;&#x2003;This class allows reading inputs from a standard keyboard.</p>
+<ul>
+<li>function void <strong>init</strong>(): for internal use only;</li>
+<li>function char <strong>keyPressed</strong>(): returns the character of the currently pressed key on the keyboard; if no key is currently pressed, returns 0;</li>
+<li>function char <strong>readChar</strong>(): waits until a key is pressed on the keyboard and released, then echoes the key to the screen and returns the character of the pressed key;</li>
+<li>function String <strong>readLine</strong>(String message): prints the message on the screen, reads the line (text until a newline character is detected) from the keyboard, echoes the line to the screen, and returns its value. This function also handles user backspaces;</li>
+<li>function int <strong>readInt</strong>(String message): prints the message on the screen, reads the line (text until a newline character is detected) from the keyboard, echoes the line to the screen, and returns its integer value (until the first non-digit character in the line is detected). This function also handles user backspaces.</li>
+</ul>
+<h4 id="1227-memory">12.2.7 Memory</h4>
+<p>&#x2003;&#x2003;This class allows direct access to the main memory of the host platform.</p>
+<ul>
+<li>function void <strong>init</strong>(): for internal use only;</li>
+<li>function int <strong>peek</strong>(int address): returns the value of the main memory at this address;</li>
+<li>function void <strong>poke</strong>(int address, int value): sets the contents of the main memory at this address to value;</li>
+<li>function Array <strong>alloc</strong>(int size): finds and allocates from the heap a memory block of the specified size and returns a reference to its base address;</li>
+<li>function void <strong>deAlloc</strong>(Array o): De-allocates the given object and frees its memory space.</li>
+</ul>
+<h4 id="1228-sys">12.2.8 Sys</h4>
+<p>&#x2003;&#x2003;This class supports some execution-related services.</p>
+<ul>
+<li>function void <strong>init</strong>(): calls the init functions of the other OS classes and then calls the Main.main () function. For internal use only;</li>
+<li>function void <strong>halt</strong>(): halts the program execution;</li>
+<li>function void <strong>error</strong>(int errorCode): prints the error code on the screen and halts;</li>
+<li>function void <strong>wait</strong>(int duration): waits approximately duration milliseconds and returns.</li>
+</ul>
+
                                 
                                 </section>
                             
@@ -1293,7 +1388,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"2.The Jack OS Specification","level":"2.13.2","depth":2,"next":{"title":"3.Implementation","level":"2.13.3","depth":2,"path":"chapter12/03-Implementation.md","ref":"chapter12/03-Implementation.md","articles":[]},"previous":{"title":"1.Background","level":"2.13.1","depth":2,"path":"chapter12/01-Background.md","ref":"chapter12/01-Background.md","articles":[]},"dir":"neutral"},"config":{"plugins":["expandable-chapters-small"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"expandable-chapters-small":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"3.2.3"},"file":{"path":"chapter12/02-The_Jack_OS_Specification.md","mtime":"2019-11-24T03:41:09.822Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-25T02:27:55.981Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"2.The Jack OS Specification","level":"2.13.2","depth":2,"next":{"title":"3.Implementation","level":"2.13.3","depth":2,"path":"chapter12/03-Implementation.md","ref":"chapter12/03-Implementation.md","articles":[]},"previous":{"title":"1.Background","level":"2.13.1","depth":2,"path":"chapter12/01-Background.md","ref":"chapter12/01-Background.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-small"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"expandable-chapters-small":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"3.2.3"},"file":{"path":"chapter12/02-The_Jack_OS_Specification.md","mtime":"2019-11-27T02:46:51.968Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-29T01:25:41.050Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

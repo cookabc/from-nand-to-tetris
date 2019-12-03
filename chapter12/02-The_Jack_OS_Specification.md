@@ -99,14 +99,14 @@
   * function int **peek**(int address): returns the value of the main memory at this address;
   * function void **poke**(int address, int value): sets the contents of the main memory at this address to value;
   * function Array **alloc**(int size): finds and allocates from the heap a memory block of the specified size and returns a reference to its base address;
-  * function void **deAlloc**(Array o): De-allocates the given object and frees its memory space.
+  * function void **deAlloc**(Array o): de-allocates the given object and frees its memory space.
 
 
 
 #### 12.2.8 Sys
 
 &emsp;&emsp;This class supports some execution-related services.
-  * function void **init**(): calls the init functions of the other OS classes and then calls the Main.main () function. For internal use only;
+  * function void **init**(): calls the init functions of the other OS classes and then calls the Main.main() function. For internal use only;
   * function void **halt**(): halts the program execution;
   * function void **error**(int errorCode): prints the error code on the screen and halts;
   * function void **wait**(int duration): waits approximately duration milliseconds and returns.

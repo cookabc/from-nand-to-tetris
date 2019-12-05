@@ -28,7 +28,7 @@
 
 &emsp;&emsp;The CPU of the Hack platform is designed to execute 16-bit instructions according to the Hack machine language specified in chapter 4. It expects to be connected to two separate memory modules: an instruction memory, from which it fetches instructions for execution, and a data memory, from which it can read, and into which it can write, data values. Figure 5.2 gives the specification details.
 
-<div align="center"><img width="500" src="../figure/05/5.2.png"/></div>
+<div align="center"><img width="650" src="../figure/05/5.2.png"/></div>
 
 &emsp;&emsp;**Figure 5.2** The Central Processing Unit. Assembled from the ALU and the registers built in chapters 2 and 3, respectively.
 
@@ -38,7 +38,7 @@
 
 &emsp;&emsp;The Hack instruction memory is implemented in a direct-access Read-Only Memory device, also called ROM. The Hack ROM consists of 32K addressable 16-bit registers, as shown in figure 5.3.
 
-<div align="center"><img width="500" src="../figure/05/5.3.png"/></div>
+<div align="center"><img width="550" src="../figure/05/5.3.png"/></div>
 
 &emsp;&emsp;**Figure 5.3** Instruction memory.
 
@@ -56,13 +56,13 @@
 
 &emsp;&emsp;**Screen** The Hack computer can interact with a black-and-white screen organized as 256 rows of 512 pixels per row. The computer interfaces with the physical screen via a memory map, implemented by a chip called Screen. This chip behaves like regular memory, meaning that it can be read and written to. In addition, it features the side effect that any bit written to it is reflected as a pixel on the physical screen (1 = black, 0 = white). The exact mapping between the memory map and the physical screen coordinates is given in figure 5.4.
 
-<div align="center"><img width="500" src="../figure/05/5.4.png"/></div>
+<div align="center"><img width="550" src="../figure/05/5.4.png"/></div>
 
 &emsp;&emsp;**Figure 5.4** Screen interface.
 
 &emsp;&emsp;**Keyboard** The Hack computer can interact with a standard keyboard, like that of a personal computer. The computer interfaces with the physical keyboard via a chip called Keyboard (figure 5.5). Whenever a key is pressed on the physical keyboard, its 16-bit ASCII code appears as the output of the Keyboard chip. When no key is pressed, the chip outputs 0. In addition to the usual ASCII codes, the Keyboard chip recognizes, and responds to, the keys listed in figure 5.6.
 
-<div align="center"><img width="500" src="../figure/05/5.5.png"/></div>
+<div align="center"><img width="550" src="../figure/05/5.5.png"/></div>
 
 &emsp;&emsp;**Figure 5.5** Keyboard interface.
 

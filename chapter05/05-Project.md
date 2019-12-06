@@ -34,6 +34,6 @@
 
 &emsp;&emsp;**The Hardware Simulator** As in the projects in chapters 1-3, all the chips in this project (including the topmost Computer chip) can be implemented and tested using the hardware simulator supplied with the book. Figure 5.11 is a screen shot of testing the Rect.hack program on a Computer chip implementation.
 
-<div align="center"><img width="500" src="../figure/05/5.11.png"/></div>
+<div align="center"><img width="600" src="../figure/05/5.11.png"/></div>
 
 &emsp;&emsp;**Figure 5.11** Testing the Computer chip on the hardware simulator. The Rect program draws a rectangle of width 16 pixels and length RAM[0] at the top left of the screen. Note that the program is correct. Thus, if it does not work properly, it means that the computer platform on which it runs (Computer.hdl and/or some of its lower-level parts) is buggy.

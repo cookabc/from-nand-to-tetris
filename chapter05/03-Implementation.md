@@ -20,7 +20,7 @@
 
 &emsp;&emsp;The CPU implementation objective is to create a logic gate architecture capable of executing a given Hack instruction and fetching the next instruction to be executed. Naturally, the CPU will include an ALU capable of executing Hack instructions, a set of registers, and some control logic designed to fetch and decode instructions. Since almost all these hardware elements were already built in previous chapters, the key question here is how to connect them in order to effect the desired CPU operation. One possible solution is illustrated in figure 5.9.
 
-<div align="center"><img width="500" src="../figure/05/5.9.png"/></div>
+<div align="center"><img width="600" src="../figure/05/5.9.png"/></div>
 
 &emsp;&emsp;**Figure 5.9** Proposed CPU implementation. The diagram shows only data and address paths, namely, wires that carry data and addresses from one place to another. The diagram does not show the CPU’s <em>control logic</em>, except for inputs and outputs of control bits, labeled with a circled “c”. Thus it should be viewed as an incomplete chip diagram.
 

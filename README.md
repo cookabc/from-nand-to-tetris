@@ -4,7 +4,7 @@
 
 -----
 
-* This is the text book for course **"From Nand To Tetris"**, with full name **「The Elements of Computing Systems: Building a Mordern Computer from First Principles」**
+* This is the text book, with full name **「The Elements of Computing Systems: Building a Mordern Computer from First Principles」**, of the course **"From Nand To Tetris"**
   * [Online Read](https://cookabc.github.io/from-nand-to-tetris/)
 
 

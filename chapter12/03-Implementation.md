@@ -62,7 +62,7 @@
 
 &emsp;&emsp;**Keyboard.keyPressed():** This function provides “raw” (direct) access to this memory location and can be implemented easily using Memory.peek().
 
-&emsp;&emsp;**Keyboard.readChar, Keyboard.readString:** These functions provide “cooked” access to single character inputs and to string inputs, respectively. Proposed cooking instructions appear in figures 12.12 and 12.13.
+&emsp;&emsp;**Keyboard.readChar(), Keyboard.readString():** These functions provide “cooked” access to single character inputs and to string inputs, respectively. Proposed cooking instructions appear in figures 12.12 and 12.13.
 
 
 

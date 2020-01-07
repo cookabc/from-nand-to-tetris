@@ -12,7 +12,9 @@
 
 &emsp;&emsp;‘xxx’: quoted boldface is used for tokens that appear verbatim (“terminals”);
 
-&emsp;&emsp;xxx: regular typeface is used for names of language constructs (“non-terminals”); (): parentheses are used for grouping of language constructs;
+&emsp;&emsp;xxx: regular typeface is used for names of language constructs (“non-terminals”);
+
+&emsp;&emsp;(): parentheses are used for grouping of language constructs;
 
 &emsp;&emsp;x|y: indicates that either x or y can appear;
 
@@ -22,17 +24,17 @@
 
 &emsp;&emsp;The Jack language syntax is given in figure 10.5, using the preceding conventions.
 
+<div align="center"><img width="650" src="../figure/10/10.5.png"/></div>
+
+<div align="center"><img width="650" src="../figure/10/10.5a.png"/></div>
+
+&emsp;&emsp;**Figure 10.5** Complete grammar of the Jack language.
+
 
 
 #### 10.2.2 A Syntax Analyzer for the Jack Language
 
 &emsp;&emsp;The main purpose of the syntax analyzer is to read a Jack program and “understand” its syntactic structure according to the Jack grammar. By understanding, we mean that the syntax analyzer must know, at each point in the parsing process, the structural identity of the program element that it is currently reading, namely, whether it is an expression, a statement, a variable name, and so on. The syntax analyzer must possess this syntactic knowledge in a complete recursive sense. Without it, it will be impossible to move on to code generation—the ultimate goal of the overall compiler.
-
-<div align="center"><img width="500" src="../figure/10/10.5.png"/></div>
-
-<div align="center"><img width="500" src="../figure/10/10.5a.png"/></div>
-
-&emsp;&emsp;**Figure 10.65** Complete grammar of the Jack language.
 
 &emsp;&emsp;The fact that the syntax analyzer “understands” the programmatic structure of the input can be demonstrated by having it print the processed text in some well-structured and easy-to-read format. One can think of several ways to cook up such a demonstration. In this book, we decided to have the syntax analyzer output an XML file whose marked-up format reflects the syntactic structure of the underlying program. By viewing this XML output file—a task that can be conveniently done with any Web browser —one should be able to tell right away if the syntax analyzer is doing the job or not.
 

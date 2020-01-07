@@ -17,11 +17,11 @@
 
 &emsp;&emsp;In its plainest syntactic form, a program is simply a sequence of characters, stored in a text file. The first step in the syntax analysis of a program is to group the characters into tokens (as defined by the language syntax), while ignoring white space and comments. This step is usually called lexical analysis, scanning, or tokenizing. Once a program has been tokenized, the tokens (rather than the characters) are viewed as its basic atoms, and the tokens stream becomes the main input of the compiler. Figure 10.2 illustrates the tokenizing of a typical code fragment, taken from a C or Java program.
 
-&emsp;&emsp;As seen in figure 10.2, tokens fall into distinct categories, or types: while is a keyword, count is an identifier, <= is an operator, and so on. In general, each programming language specifies the types of tokens it allows, as well as the exact syntax rules for combining them into valid programmatic structures. For example, some languages may specify that “++” is a valid operator token, while other languages may not. In the latter case, an expression containing two consecutive “+” characters will be rendered invalid by the compiler.
-
 <div align="center"><img width="500" src="../figure/10/10.2.png"/></div>
 
 &emsp;&emsp;**Figure 10.2** Lexical analysis.
+
+&emsp;&emsp;As seen in figure 10.2, tokens fall into distinct categories, or types: <em>while</em> is a keyword, <em>count</em> is an identifier, <em><=</em> is an operator, and so on. In general, each programming language specifies the types of tokens it allows, as well as the exact syntax rules for combining them into valid programmatic structures. For example, some languages may specify that “++” is a valid operator token, while other languages may not. In the latter case, an expression containing two consecutive “+” characters will be rendered invalid by the compiler.
 
 
 

@@ -10,7 +10,7 @@
 
 &emsp;&emsp;**Stage 1: Symbol Table**
 
-&emsp;&emsp;We suggest that you start by building the compiler’s symbol table module and using it to extend the syntax analyzer built in Project 10. Presently, whenever an identifier is encountered in the program, say foo, the syntax analyzer outputs the XML line <identifier> foo </identifier>. Instead, have your analyzer output the following information as part of its XML output (using some format of your choice):
+&emsp;&emsp;We suggest that you start by building the compiler’s symbol table module and using it to extend the syntax analyzer built in Project 10. Presently, whenever an identifier is encountered in the program, say foo, the syntax analyzer outputs the XML line &lt;identifier&gt; foo &lt;/identifier&gt;. Instead, have your analyzer output the following information as part of its XML output (using some format of your choice):
 
   &emsp;&emsp;■ the identifier category (var, argument, static, field, class, subroutine);
 
@@ -56,7 +56,7 @@
 
 &emsp;&emsp;**Purpose:** Tests how your compiler handles all the procedural elements of the Jack language, namely, expressions (without arrays or method calls), functions, and all the language statements. The program does not test the handling of methods, constructors, arrays, strings, static variables, and field variables.
 
-&emsp;&emsp;**Square Dance** This program is a trivial interactive “game” that enables moving a black square around the screen using the keyboard’s four arrow keys. While moving, the size of the square can be increased and decreased by pressing the “z” and “x” keys, respectively. To quit the game, press the “q” key. To test if your compiler has translated the program correctly, run the translated code in the VM emulator and make sure that it works according to this description. Purpose: Tests how your compiler handles the object- oriented constructs of the Jack language: constructors, methods, fields and expressions that include method calls. It does not test the handling of static variables.
+&emsp;&emsp;**Square Dance** This program is a trivial interactive “game” that enables moving a black square around the screen using the keyboard’s four arrow keys. While moving, the size of the square can be increased and decreased by pressing the “z” and “x” keys, respectively. To quit the game, press the “q” key. To test if your compiler has translated the program correctly, run the translated code in the VM emulator and make sure that it works according to this description. Purpose: Tests how your compiler handles the object-oriented constructs of the Jack language: constructors, methods, fields and expressions that include method calls. It does not test the handling of static variables.
 
 &emsp;&emsp;**Average** This program computes the average of a user-supplied sequence of integers. To test if your compiler has translated the program correctly, run the translated code in the VM emulator and follow the instructions displayed on the screen. Purpose: Tests how your compiler handles arrays and strings.
 
